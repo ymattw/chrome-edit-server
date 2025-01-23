@@ -45,7 +45,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/plain; charset=utf-8')
             self.end_headers()
-            self.wfile.write('edit-server is running.\n')
+            self.wfile.write(b'edit-server is running.\n')
             return
         self.send_error(404, "GET Not Found: %s" % self.path)
 
@@ -133,6 +133,7 @@ class SocketInheritingHTTPServer(ThreadedHTTPServer):
     """
     A HttpServer subclass that takes over an inherited socket from systemd
     """
+
     def __init__(self, address_info, handler, fd, bind_and_activate=True):
         super(SocketInheritingHTTPServer, self).__init__(
             address_info,
